@@ -1,0 +1,26 @@
+{% extends "shop/base.html" %}
+{% block title %}Пополнение баланса{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Пополнить баланс</h1>
+  <p class="muted">{{ profile.name }} · сейчас {{ profile.balance }} ₽</p>
+  <form method="post" action="/topup/start/" class="stack">
+    {% csrf_token %}
+    <label>Сумма ({{ currency }})
+      <input type="number" name="amount" min="1" step="1" required placeholder="500" />
+    </label>
+    <div class="presets">
+      {% for p in preset %}
+      <button type="button" class="chip" data-v="{{ p }}">{{ p }} ₽</button>
+      {% endfor %}
+    </div>
+    <button class="btn gold" type="submit">Перейти к оплате</button>
+  </form>
+  <p class="muted" style="margin-top:12px">Оплата через Lava.top. Ключ API только на сервере.</p>
+</section>
+<script>
+document.querySelectorAll('.chip').forEach(b => {
+  b.onclick = () => document.querySelector('input[name=amount]').value = b.dataset.v;
+});
+</script>
+{% endblock %}

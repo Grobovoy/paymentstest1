@@ -1,0 +1,31 @@
+{% extends "shop/base.html" %}
+{% block title %}Редактировать анкету{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Анкета</h1>
+  <form method="post" class="stack">
+    {% csrf_token %}
+    <label>Имя <input name="name" value="{{ profile.name }}" required /></label>
+    <label>Пол
+      <select name="gender">
+        <option value="2" {% if profile.gender == 2 %}selected{% endif %}>Женский</option>
+        <option value="1" {% if profile.gender == 1 %}selected{% endif %}>Мужской</option>
+      </select>
+    </label>
+    <label>Возраст <input type="number" name="age" value="{{ profile.age }}" min="18" max="99" /></label>
+    <label>Город
+      <select name="city">
+        {% for c in cities %}
+        <option value="{{ c }}" {% if profile.city == c %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Заголовок <input name="title" value="{{ profile.title }}" /></label>
+    <label>О себе <textarea name="about" rows="4">{{ profile.about }}</textarea></label>
+    <label style="flex-direction:row;align-items:center;gap:8px">
+      <input type="checkbox" name="is_public" {% if profile.is_public %}checked{% endif %} /> Показывать в поиске
+    </label>
+    <button class="btn" type="submit">Сохранить</button>
+  </form>
+</section>
+{% endblock %}

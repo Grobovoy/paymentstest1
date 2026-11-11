@@ -1,0 +1,26 @@
+{% extends "shop/base.html" %}
+{% block title %}Атолин — знакомства{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Знакомства с интересными людьми</h1>
+  <p>Анкеты, поиск, личный кабинет и пополнение баланса. Регистрация бесплатна.</p>
+  <div class="actions">
+    <a class="btn" href="/register/">Создать анкету</a>
+    <a class="btn ghost" href="/search/">Открыть поиск</a>
+  </div>
+</section>
+{% if not key_ok %}
+<div class="flash warning">LAVA_API_KEY не задан — пополнение баланса недоступно.</div>
+{% endif %}
+<div class="section-title">
+  <h2>Новые анкеты</h2>
+  <a href="/search/">Все →</a>
+</div>
+<div class="grid">
+  {% for a in ankets %}
+    {% include "shop/_anketa_card.html" %}
+  {% empty %}
+    <p class="muted">Пока нет анкет. <a href="/register/">Зарегистрируйтесь первым</a>.</p>
+  {% endfor %}
+</div>
+{% endblock %}
