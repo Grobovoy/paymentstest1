@@ -1,8 +1,0 @@
-<a class="anketa-card" href="/anketa/{{ a.id }}/">
-  <div class="avatar" data-i="{{ a.id }}">{{ a.name|slice:":1"|default:"?" }}</div>
-  <div class="body">
-    <div class="name">{% if a.online %}<span class="on" title="online"></span>{% endif %}{{ a.name }}, {{ a.age }}</div>
-    <div class="meta">{{ a.city }}</div>
-    <div class="title">{{ a.title }}</div>
-  </div>
-</a>
